@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AllSharing from "./components/AllSharing";
 import CreateSharing from "./components/CreateSharing";
+import GreenAI from "./components/GreenAI";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateSharing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/greenai"
+          element={
+            <ProtectedRoute>
+              <GreenAI />
             </ProtectedRoute>
           }
         />
