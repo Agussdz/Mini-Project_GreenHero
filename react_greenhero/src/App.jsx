@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
 import "preline/preline";
 import { IStaticMethods } from "preline/preline";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
