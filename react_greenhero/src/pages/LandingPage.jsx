@@ -9,6 +9,7 @@ export default function LandingPage() {
     <>
       <HeroSections />
       <Features />
+      <ListPlant />
       <Footer />
     </>
   );
