@@ -8,6 +8,8 @@ export default function LandingPage() {
   return (
     <>
       <HeroSections />
+      <Features />
+      <Footer />
     </>
   );
 }
