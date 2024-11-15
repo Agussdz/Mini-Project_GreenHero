@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = "AIzaSyC9c5p5UPr-AMBYA_Lijg5vXiQyiSGYGlo";
+const apiKey = import.meta.env.VITE_GOOGLE_GENERATIVE_AI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 export const uploadImage = async (imageFile) => {
