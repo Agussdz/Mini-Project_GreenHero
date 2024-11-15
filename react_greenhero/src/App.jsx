@@ -9,6 +9,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AllSharing from "./components/AllSharing";
 import CreateSharing from "./components/CreateSharing";
 import GreenAI from "./components/GreenAI";
+import CreateModul from "./components/CreateModul";
+import PlantDetail from "./components/PlantDetail";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           }
         />
         <Route path="/allsharing" element={<AllSharing />} />
+        <Route path="/createmodul" element={<CreateModul />} />
+        <Route path="/plant/:id" element={<PlantDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
