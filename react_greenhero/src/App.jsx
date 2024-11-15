@@ -5,6 +5,9 @@ import "preline/preline";
 import { IStaticMethods } from "preline/preline";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AllSharing from "./components/AllSharing";
+import CreateSharing from "./components/CreateSharing";
 
 function App() {
   return (
@@ -12,6 +15,15 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/createsharing"
+          element={
+            <ProtectedRoute>
+              <CreateSharing />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/allsharing" element={<AllSharing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
