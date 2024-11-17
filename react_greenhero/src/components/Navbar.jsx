@@ -1,127 +1,136 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../services/supabaseClient";
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   // Fungsi untuk menangani logout
-  const handleLogout = () => {
-    // Hapus data user dari localStorage
+  const handleLogout = async () => {
     localStorage.removeItem("user");
-
-    // Redirect ke halaman login setelah logout
+    await supabase.auth.signOut();
     navigate("/login");
   };
 
   const isLoggedIn = localStorage.getItem("user");
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
-    <>
-      <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full px-10 md:ps-20 bg-white text-black">
-        <nav className="container relative md:py-3 w-full md:flex md:items-center md:justify-between  mx-auto md:mx-0 lg:mx-0 py-5 pe-3 md:pe-0">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold mb-2">
-              <span className="text-green-700">Green</span>Hero
-            </h3>
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 z-50 ">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <Link
+          to={"/"}
+          className="flex items-center space-x-3 rtl:space-x-reverse"
+        >
+          <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
+            Green<span className="text-green-700">Hero</span>
+          </span>
+        </Link>
 
-            <div className="md:hidden">
-              <button
-                type="button"
-                className="hs-collapse-toggle size-8 flex justify-center items-center text-sm font-semibold rounded-full bg-neutral-800 text-white disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-navbar-floating-dark-collapse"
-                aria-expanded="false"
-                aria-controls="hs-navbar-floating-dark"
-                aria-label="Toggle navigation"
-                data-hs-collapse="#hs-navbar-floating-dark"
-              >
-                <svg
-                  className="hs-collapse-open:hidden shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="3" x2="21" y1="6" y2="6" />
-                  <line x1="3" x2="21" y1="12" y2="12" />
-                  <line x1="3" x2="21" y1="18" y2="18" />
-                </svg>
-                <svg
-                  className="hs-collapse-open:block hidden shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div
-            id="hs-navbar-floating-dark"
-            className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block"
-            aria-labelledby="hs-navbar-floating-dark-collapse"
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          onClick={toggleMenu}
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default"
+          aria-expanded={isMenuOpen ? "true" : "false"}
+        >
+          <span className="sr-only">Open main menu</span>
+          <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
           >
-            <div className="flex flex-col md:flex-row md:items-center gap-3 md:justify-end py-2 md:py-0 md:ps-7 md:gap-5 font-semibold">
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+
+        {/* Navbar Links */}
+        <div
+          className={`${
+            isMenuOpen ? "block" : "hidden"
+          } w-full md:block md:w-auto`}
+          id="navbar-default"
+        >
+          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 items-center gap-5">
+            <li>
               <Link
-                to={"/"}
-                className="text-[16px] p-3 ps-px sm:px-3 md:py-4 text-sm text-black hover:text-green-700 focus:outline-none focus:text-neutral-300"
+                to="/"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                aria-current="page"
               >
                 Home
               </Link>
+            </li>
+            <li>
               <Link
-                to={"/allsharing"}
-                className="text-[16px] p-3 ps-px sm:px-3 md:py-4 text-sm text-black hover:text-green-700 focus:outline-none focus:text-neutral-300"
+                to="/tanaman"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Tanaman
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/allsharing"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
                 Sharing
               </Link>
-              {isLoggedIn && (
-                <Link
-                  to={"/createsharing"}
-                  className="text-[16px] p-3 ps-px sm:px-3 md:py-4 text-sm text-black hover:text-green-700 focus:outline-none focus:text-neutral-300"
-                >
-                  Upload
-                </Link>
-              )}
-              {isLoggedIn && (
-                <Link
-                  to={"/greenai"}
-                  className="text-[16px] p-3 ps-px sm:px-3 md:py-4 text-sm text-black hover:text-green-700 focus:outline-none focus:text-neutral-300"
-                >
-                  Green AI
-                </Link>
-              )}
+            </li>
 
+            {isLoggedIn && (
+              <>
+                <li>
+                  <Link
+                    to="/createsharing"
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Upload
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/greenai"
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Green AI
+                  </Link>
+                </li>
+              </>
+            )}
+            <li>
               {isLoggedIn ? (
                 <button
                   onClick={handleLogout}
-                  className="text-[16px] group items-center gap-x-2 py-2.5 px-4 bg-red-700 hover:bg-red-900 font-medium text-sm text-white rounded-lg focus:outline-none "
+                  className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                   Logout
                 </button>
               ) : (
-                <Link to={"/login"}>
-                  <button className="text-[16px] group inline-flex items-center gap-x-2 py-2.5 px-4 bg-green-700 hover:bg-green-900 font-medium text-sm text-white rounded-lg focus:outline-none">
-                    Login
-                  </button>
+                <Link
+                  to="/login"
+                  className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                >
+                  Login
                 </Link>
               )}
-            </div>
-          </div>
-        </nav>
-      </header>
-    </>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 }

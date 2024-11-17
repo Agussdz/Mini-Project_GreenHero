@@ -1,30 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Greenplant from "../assets/undraw_explore_re_8l4v.svg";
-import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabaseClient";
+import { Link } from "react-router-dom";
+import useRegister from "../hooks/useRegister";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const { user, error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      alert(error.message);
-    } else {
-      // Insert username into the users table
-      const { data, error: insertError } = await supabase
-        .from("users")
-        .insert([{ username, email }]);
-      if (insertError) {
-        alert(insertError.message);
-      } else {
-      }
-    }
-  };
+  const {
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleRegister,
+    error,
+  } = useRegister();
 
   return (
     <div>
@@ -43,6 +32,7 @@ export default function Register() {
                   </p>
                 </div>
 
+                {/* Input untuk Username */}
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">
                     User name
@@ -58,6 +48,8 @@ export default function Register() {
                     />
                   </div>
                 </div>
+
+                {/* Input untuk Email */}
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">
                     Email
@@ -73,6 +65,8 @@ export default function Register() {
                     />
                   </div>
                 </div>
+
+                {/* Input untuk Password */}
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">
                     Password
@@ -89,6 +83,7 @@ export default function Register() {
                   </div>
                 </div>
 
+                {/* Tombol Register */}
                 <div className="!mt-8">
                   <button
                     type="submit"
@@ -98,8 +93,9 @@ export default function Register() {
                   </button>
                 </div>
 
+                {/* Link ke halaman Login */}
                 <p className="text-sm !mt-8 text-center text-gray-800">
-                  Already Have an account?{" "}
+                  Already have an account?{" "}
                   <Link
                     to={"/login"}
                     className="text-green-600 font-semibold hover:underline ml-1 whitespace-nowrap"
@@ -109,6 +105,8 @@ export default function Register() {
                 </p>
               </form>
             </div>
+
+            {/* Gambar */}
             <div className="lg:h-[400px] md:h-[300px] max-md:mt-8 hidden md:block lg:block">
               <img
                 src={Greenplant}

@@ -3,18 +3,14 @@ import { ShoppingCart, Search, User } from "lucide-react";
 export default function HeroSections() {
   return (
     <>
-      <section className="bg-white mt-20 ">
+      <section className="bg-white">
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="flex flex-col md:flex-row items-center justify-around">
-            <div className="w-full md:w-1/2 mb-8 md:mb-0  p-6">
-              <h2 className="text-green-700 font-bold"># SUSTAINABLE</h2>
-              <h1 className="text-4xl md:text-4xl lg:text-4xl font-bold mb-4 ">
-                Protecting the
-                <span className="text-green-700"> Environment</span> Through
-                <span className="bg-green-700 text-white px-3 rounded-md leading-loose ms-3">
-                  Sustainable
-                </span>{" "}
-                <br />
+            <div className="w-full md:w-1/2 mb-8 md:mb-0 p-6">
+              <h2 className="text-green-600 font-bold"># SUSTAINABLE</h2>
+              <h1 className="text-4xl md:text-4xl lg:text-4xl font-bold mb-4">
+                Protecting The Environment Through
+                <span className="text-green-600"> Sustainable </span> <br />
                 Agriculture
               </h1>
               <p className="text-gray-600 mb-6">

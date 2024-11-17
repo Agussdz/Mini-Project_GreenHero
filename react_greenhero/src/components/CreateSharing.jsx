@@ -10,7 +10,9 @@ export default function CreateSharing() {
   const [selectedTopic, setSelectedTopic] = useState("");
   const [content, setContent] = useState("");
   const [editingPost, setEditingPost] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
+  // Mengecek user dari localstorage dan menampilkan postingan dari user tersebut
   useEffect(() => {
     const fetchPosts = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -35,8 +37,7 @@ export default function CreateSharing() {
     fetchPosts();
   }, []);
 
-  const [imageFile, setImageFile] = useState(null); // State untuk gambar yang dipilih
-
+  // Menangani submit form untuk insert dan update
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +59,6 @@ export default function CreateSharing() {
       if (result.isConfirmed) {
         let imageUrl = null;
 
-        // Jika ada gambar baru yang dipilih, upload gambar baru
         if (imageFile) {
           const fileName = `${Date.now()}_${imageFile.name}`;
           const { data, error: uploadError } = await supabase.storage
@@ -111,7 +111,6 @@ export default function CreateSharing() {
             });
           }
         } else {
-          // Jika tidak sedang mengedit (create post)
           const { data, error } = await supabase.from("posts").insert([
             {
               user_id: user.id,
@@ -147,6 +146,7 @@ export default function CreateSharing() {
     });
   };
 
+  // Menangkap data postingan agar bisa di edit
   const handleEdit = async (post) => {
     setSelectedCategory(post.category);
     setSelectedTopic(post.topic);
@@ -154,6 +154,7 @@ export default function CreateSharing() {
     setEditingPost(post.id);
   };
 
+  // Fungsi untuk menghapus postingan
   const handleDelete = async (postId) => {
     try {
       const { data, error } = await supabase
@@ -177,7 +178,7 @@ export default function CreateSharing() {
   };
 
   return (
-    <div className="container mx-auto p-4 mt-20">
+    <div className="container mx-auto p-4">
       <div className="mt-12 mx-auto max-w-4xl p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-3xl font-semibold text-gray-800 mb-6">
           {editingPost ? "Edit Post" : "Create a New Post"}
@@ -194,7 +195,7 @@ export default function CreateSharing() {
               className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
             >
               <option value="">Select Category</option>
-              <option value="Pertanyaan">Pertanyaan</option>
+              <option value="Informasi">Informasi</option>
               <option value="Edukasi">Edukasi</option>
             </select>
           </div>

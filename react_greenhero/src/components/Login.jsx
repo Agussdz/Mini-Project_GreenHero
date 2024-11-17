@@ -1,47 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Greenplant from "../assets/undraw_explore_re_8l4v.svg";
-import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabaseClient";
+import useLogin from "../hooks/useLogin";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    // Mencari user berdasarkan username terlebih dahulu
-    const { data: userData, error: userError } = await supabase
-      .from("users")
-      .select("id, username, email")
-      .eq("username", username)
-      .single();
-
-    if (userError || !userData) {
-      alert("User not found with this username.");
-      return;
-    }
-
-    // Lakukan login dengan email dan password setelah username ditemukan
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: userData.email,
-      password: password,
-    });
-
-    if (error) {
-      alert("Login failed: " + error.message);
-      return;
-    }
-
-    // Simpan data user ke localStorage
-    localStorage.setItem("user", JSON.stringify(userData));
-    navigate("/");
-  };
+  const { username, setUsername, password, setPassword, handleLogin } =
+    useLogin();
 
   return (
     <div>
-      <div className="font-[sans-serif] mt-8">
+      <div className="font-[sans-serif]">
         <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
           <div className="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full">
             <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">

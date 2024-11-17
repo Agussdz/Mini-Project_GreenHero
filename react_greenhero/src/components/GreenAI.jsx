@@ -72,13 +72,13 @@ export default function GreenAI() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 mt-20">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-[70%] h-[95%]">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] md:w-[70%] h-[90%]">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Chatbot AI for Plant Analysis
         </h2>
 
-        <div className="h-[70%] overflow-y-auto mb-4 border border-gray-200 rounded-lg p-4">
+        <div className="h-[65%] md:h-[70%] overflow-y-auto mb-4 border border-gray-200 rounded-lg p-4">
           {history.map((msg, index) => (
             <div
               key={index}
@@ -111,20 +111,29 @@ export default function GreenAI() {
           ))}
           {loading && (
             <div className="mb-2">
-              <span className="inline-block p-2 rounded-lg bg-blue-50 text-black">
+              <span className="inline-block p-2 rounded-lg bg-green-50 text-black">
                 Loading...
               </span>
             </div>
           )}
         </div>
 
-        <div className="mb-4 flex gap-5">
+        <div className="mb-4 flex gap-5 items-center">
           <input
             type="file"
-            accept="image/*"
             onChange={handleImageChange}
-            className="border border-gray-300 rounded-lg p-2"
-          />
+            className="text-sm text-gray-500
+        file:me-4 file:py-2 file:px-4
+        file:rounded-lg file:border-0
+        file:text-sm file:font-semibold
+        file:bg-green-600 file:text-white
+        hover:file:bg-green-700
+        file:disabled:opacity-50 file:disabled:pointer-events-none
+        dark:text-neutral-500
+        dark:file:bg-blue-500
+        dark:hover:file:bg-blue-400
+      "
+          ></input>
           {image && (
             <div className="mt-2 flex justify-center items-center gap-5">
               <img
@@ -135,7 +144,7 @@ export default function GreenAI() {
               <div>
                 <button
                   onClick={handleUploadImage}
-                  className="bg-blue-500 text-white rounded-lg py-2 px-4"
+                  className="bg-green-600 text-white rounded-lg py-2 px-4"
                 >
                   Upload Image
                 </button>
@@ -151,14 +160,14 @@ export default function GreenAI() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Masukkan pertanyaan anda..."
-            className="border border-gray-300 rounded-lg p-2 flex-grow mr-2 outline-blue-400"
+            className="border border-gray-300 rounded-lg p-2 flex-grow mr-2 outline-green-400"
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white rounded-lg px-4"
+            className="bg-green-600 text-white rounded-lg px-4"
             disabled={!input.trim()}
           >
-            Send
+            Kirim
           </button>
         </form>
       </div>

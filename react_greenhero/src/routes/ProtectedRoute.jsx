@@ -1,7 +1,7 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   // Jika tidak ada data user di localStorage, arahkan ke halaman login
@@ -9,8 +9,8 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Jika ada data user, tampilkan children (komponen yang dilindungi)
-  return children;
+  // Jika ada data user, render children di dalam outlet
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

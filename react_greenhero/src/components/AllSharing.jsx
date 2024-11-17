@@ -4,6 +4,7 @@ import { supabase } from "../services/supabaseClient";
 export default function AllSharing() {
   const [posts, setPosts] = useState([]);
 
+  // Fetching data dari postingan dari supabase
   useEffect(() => {
     const fetchPosts = async () => {
       const { data, error } = await supabase
@@ -25,7 +26,7 @@ export default function AllSharing() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-4 mt-20">
+      <div className="min-h-screen bg-gray-100 p-4 ">
         <div className="max-w-4xl mx-auto space-y-4">
           {posts.map((post) => (
             <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
@@ -43,7 +44,7 @@ export default function AllSharing() {
                     {new Date(post.posted_at).toLocaleString()}
                   </p>
                   <p className="mt-2 text-gray-800">{post.content}</p>
-                  <div className="mt-4 grid grid-cols-3 gap-2">
+                  <div className="mt-4 grid md:grid-cols-3 gap-2">
                     {post.images && (
                       <img
                         src={post.images}

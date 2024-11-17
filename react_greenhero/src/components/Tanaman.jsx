@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Sprout } from "lucide-react";
 
-export default function ListPlant() {
+export default function Tanaman() {
   const [plantData, setPlantData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,7 +25,7 @@ export default function ListPlant() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4  ">
+    <div className="container mx-auto px-4 py-8 ">
       {loading && <div className="text-center text-xl">Loading...</div>}
       {error && <div className="text-center text-red-700">{error}</div>}
       <h2 className="text-3xl py-12 font-semibold text-center flex items-center justify-center">
